@@ -17,33 +17,44 @@ suite('Functional Tests', function() {
     
     suite('GET /api/stock-prices => stockData object', function() {
       
-      test('1 stock', function(done) {
+      test('All stocks', function(done) {
        chai.request(server)
         .get('/api/stock-prices')
-        .query({stock: 'goog'})
+        .query({})
         .end(function(err, res){
-          
-          //complete this one too
-          
+          assert.equal(res.status, 200);
+          assert.property(res.body,'stockData')        
+          done();
+        });
+      });
+      
+      test('1 stock with stock', function(done) {
+        chai.request(server)
+        .get('/api/stock-prices')
+        .query({"stock": "GOOG"})
+        .end(function(err, res){
+          assert.equal(res.status, 200);
+          assert.property(res.body,'stockData')  
+          assert.isArray(res.body.stockData); 
+          assert.equal(res.body.stockData[0].stock,'GOOG')
           done();
         });
       });
       
       test('1 stock with like', function(done) {
-        
+        chai.request(server)
+        .get('/api/stock-prices')
+        .query({"stock": "GOOG", "like": true})
+        .end(function(err, res){
+          assert.equal(res.status, 200);
+          assert.property(res.body,'stockData')  
+          assert.isArray(res.body.stockData); 
+          assert.equal(res.body.stockData[0].stock,'GOOG')
+          assert.equal(res.body.stockData[0].like,true)
+          done();
+        });
       });
       
-      test('1 stock with like again (ensure likes arent double counted)', function(done) {
-        
-      });
-      
-      test('2 stocks', function(done) {
-        
-      });
-      
-      test('2 stocks with like', function(done) {
-        
-      });
       
     });
 

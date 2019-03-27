@@ -21,8 +21,7 @@ module.exports = function (app) {
     .get(function (req, res){
       var queryStock = req.query.stock;
       var queryLike = req.query.like;
-      if(queryStock!==undefined){
-        if(queryLike)
+      if(queryStock!==undefined || queryLike!==undefined){
         StockPrice.find({"stock":queryStock.toUpperCase()}).exec(function(error,data) {
           return res.json({"stockData": data});
         })
