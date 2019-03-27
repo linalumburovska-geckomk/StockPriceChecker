@@ -63,7 +63,7 @@
         $('#testForm').submit(function(e) {
           $.ajax({
             url: '/api/stock-prices',
-            type: 'get',
+            type: 'post',
             data: $('#testForm').serialize(),
             success: function(data) {
               $('#jsonResult').text(JSON.stringify(data));
@@ -74,7 +74,7 @@
         $('#testForm2').submit(function(e) {
           $.ajax({
             url: '/api/stock-prices',
-            type: 'get',
+            type: 'post',
             data: $('#testForm2').serialize(),
             success: function(data) {
               $('#jsonResult').text(JSON.stringify(data));
